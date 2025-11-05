@@ -1,0 +1,151 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<!-- Website Title Space -->
+<section class="title-space pb-5 px-3" style="height: auto;">
+    <h3 class="text-center pt-4">DISCLAIMER: This website was designed as part of a project. It is not a working
+        website.
+    </h3>
+    <div class="container text-center ">
+        <h1 class="display-1 title-font">ALTO</h1>
+        <h2 style="font-size: 50px;">Turning the Tides for Cleaner Seas</h2>
+    </div>
+</section>
+
+<section>
+    <!-- Information about the Organizations -->
+    <div class="organization-info">
+        <h1 class="display-5 pt-5 text-center"><strong>Organizations</strong></h1>
+        <hr>
+        <div class="wider-container container-fluid p-5">
+            <!-- Information about Aqua Lifeline (Organization 1) -->
+            <div class="row p-3">
+                <div class="col-lg-3 m-auto text-center">
+                    <img src="img/aqualifeline.png" alt="Aqua Lifeline Logo" class="img-fluid rounded">
+                </div>
+                <div class="col-lg-3 m-auto text-center">
+                    <h1>Aqua Lifeline</h1>
+                    <hr>
+                    <p class="org main-font">Our organization provides ocean exhibition/tours to let people learn
+                        more about the ocean and
+                        spread awareness about the problems.
+                        Additionally, we provide information about sea life and why we should focus on the problems
+                        regarding the ocean.</p>
+                </div>
+            </div>
+
+            <!-- Information about Thrive Ocean (Organization 2) -->
+            <div class="row p-3">
+                <div class="col-lg-3 m-auto text-center">
+                    <h1>Thrive Ocean</h1>
+                    <hr>
+                    <p class="org main-font">Our organization aims to resolve problems regarding the ocean and
+                        research further solutions.
+                        We have a major focus on identifying issues regarding sea life, rising sea levels, and ocean
+                        pollution.
+                    </p>
+                </div>
+                <div class="col-lg-3 m-auto text-center">
+                    <img src="img/thriveocean.png" alt="Thrive Ocean Logo" class="img-fluid rounded">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- Information about Problems -->
+<section class="problems">
+    <h1 class="display-5 text-center"><strong>Problems</strong></h1>
+    <hr>
+    <div class="container pt-5">
+        <!-- Row of clickable cards that each have information about a problem -->
+        <div class="row">
+
+            <div class="item clickable col-lg active" onclick="makeActive(event)"
+                style="background-image: url(img/ocean-pollution.jpg);">
+                <div class="item-desc">
+                    <h3>Pollution</h3>
+                    <p>Marine pollution occurs when human-made substances, like waste from factories, farms,
+                        and homes, along with noise and invasive species, enter the ocean and cause harm.
+                    </p>
+                </div>
+            </div>
+
+            <div class="item clickable col-lg" onclick="makeActive(event)"
+                style="background-image: url(img/ocean-warming.jpg);">
+                <div class="item-desc">
+                    <h3>Warming</h3>
+                    <p>Ocean warming is a significant impact of climate change, resulting from the ocean
+                        absorbing extra heat and energy from increasing greenhouse gas emissions.
+                    </p>
+                </div>
+            </div>
+
+            <div class="item clickable col-lg" onclick="makeActive(event)"
+                style="background-image: url(img/ocean-endangerment.jpg);">
+                <div class="item-desc">
+                    <h3>Endangerment</h3>
+                    <p>Marine animal endangerment occurs when species face threats like overfishing and
+                        pollution, leading to declining populations
+                        and increased risk of extinction.</p>
+                </div>
+            </div>
+
+            <div class="item clickable col-lg" onclick="makeActive(event)"
+                style="background-image: url(img/ocean-destruction.jpg);">
+                <div class="item-desc">
+                    <h3>Destruction</h3>
+                    <p>Habitat destruction refers to the damage or loss of underwater ecosystems,
+                        such as coral reefs and mangroves, often caused by threats like pollution and coastal
+                        development.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Expert Quotes -->
+<section class="expert-quotes p-5">
+    <h1 class="display-5 text-center"><strong>Expert Quotes</strong></h1>
+    <hr>
+
+    <figure class="px-4 py-2">
+        <blockquote class="blockquote">
+            <p class="main-font">Aqua Lifeline’s educational tours are pivotal in raising awareness about marine
+                conservation and
+                fostering a deeper connection between people and the ocean.
+                Thrive Ocean’s research on ocean pollution and endangerment is indispensable in guiding
+                effective conservation practices.
+                This collaboration is essential to spreading awareness and helping the ocean's ecosystems.</p>
+        </blockquote>
+        <figcaption class="blockquote-footer review-font">
+            Mr. H <cite title="Source Title">Professional Mountain Biker</cite>
+        </figcaption>
+    </figure>
+
+    <figure class="px-4 py-2">
+        <blockquote class="blockquote">
+            <p class="main-font"> Thrive Ocean’s efforts in researching and addressing pollution and
+                endangerment issues are vital
+                as they drive both scientific understanding and practical solutions.
+                Their initiatives in studying rising sea levels and pollution dynamics provide data crucial for
+                long-term conservation strategies, which are invaluable to environmental policy and protection.
+            </p>
+        </blockquote>
+        <figcaption class="blockquote-footer review-font">
+            Niyel Hassan <cite title="Source Title"> Certified GPA Saver</cite>
+        </figcaption>
+    </figure>
+
+</section>
+
+<!-- Donation Button -->
+<section class="donate text-center p-5">
+    <h1>Donate Here!</h1>
+    <button class="donate-btn">Donate!</button>
+    <p class="p-3">Note: This button is not functional.</p>
+</section>
+{% endblock content %}

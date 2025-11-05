@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<body>
+
+    <section class="firebase">
+        <section class="firebase-title">
+            <div class="container pt-5">
+                <h2 class="text-center display-1 text-white mt-5">Sign In</h2><br>
+            </div>
+        </section>
+
+        <!--Sign Up -->
+        <div class="signUpForm py-5">
+            <form class="pb-5">
+                <input type="email" placeholder="Email" id="loginEmail" class="form-control mb-3">
+                <input type="password" placeholder="Password" id="loginPassword" class="form-control mb-3">
+                <div class="form-check form-switch mb-3">
+                    <input class="form-check-input" type="checkbox" role="switch" id="keepLoggedInSwitch">
+                    <label class="form-check-label text-white" for="flexSwitchCheckDefault">Keep me signed in</label>
+                </div>
+                <button type="button" id="signIn" name="signIn" class="btn btn-outline-light mb-3 w-100">Sign
+                    In</button>
+            </form>
+        </div>
+    </section>
+
+</body>
+
+{% endblock content %}
