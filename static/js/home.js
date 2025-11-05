@@ -74,3 +74,31 @@ function signOutUser() {
 
   window.location = 'home'
 }
+
+// --------------------------- Home Page Loading -----------------------------
+window.onload = function () {
+
+
+  // ------------------------- Set Welcome Message -------------------------
+  getUserName();    // Get current user's first name
+  if (currentUser == null) {
+    userLink.classList.add('d-none');
+    signOutLink.classList.add('d-none');
+  }
+  else {
+    userLink.innerText = currentUser.firstname;
+    register.classList.add('d-none');
+  }
+
+  if (currentUser == null) {
+    welcome.innerText = 'Please register/sign in before continuing!';
+  }
+  else {
+    welcome.innerText = 'Welcome ' + currentUser.firstname + '!';
+    register.classList.add('d-none');
+    document.getElementById('signOut').onclick = function () {
+      signOutUser();
+    }
+  }
+
+}
