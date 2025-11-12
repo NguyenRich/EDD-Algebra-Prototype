@@ -1,16 +1,16 @@
 /* ----------- Variables ----------- */
 
 :root {
-  --color-1: #CAF0F8;
-  --color-2: #ADE8F4;
-  --color-3: #90E0EF;
-  --color-4: #48CAE4;
-  --color-5: #00B4D8;
-  --color-6: #0096C7;
-  --color-7: #006297;
-  --color-8: #023E8A;
-  --color-9: #03045E;
-  --color-10: #4b95c0;
+  --color-1: #b0cfb8;
+  --color-2: #85b88d;
+  --color-3: #83c273;
+  --color-4: #79e448;
+  --color-5: #00d848;
+  --color-6: #07c700;
+  --color-7: #059700;
+  --color-8: #128a02;
+  --color-9: #065e03;
+  --color-10: #55c04b;
 
   --button-background-color: var(--color-4);
   --button-hover-color-1: var(--color-5);
@@ -223,85 +223,6 @@
   top: 2px;
 }
 
-/* --- Problems (Cards) CSS --- */
-
-.problems {
-  padding: 60px 50px;
-}
-
-.problems .item {
-  /* Styles for problem cards */
-  margin: 0 15px 60px;
-  width: 300px;
-  height: 400px;
-  display: flex;
-  display: -webkit-flex;
-  align-items: flex-end;
-  -webkit-align-items: flex-end;
-  background: #343434 no-repeat center center / cover;
-  border-radius: 16px;
-  overflow: hidden;
-  position: relative;
-  transition: all 0.4s ease-in-out;
-  -webkit-transition: all 0.4s ease-in-out;
-  cursor: pointer;
-}
-
-.problems .item.active {
-  /* Styles for active (clicked) problem cards */
-  width: 90%;
-  height: 400px;
-  box-shadow: 12px 40px 40px rgba(0, 0, 0, 0.25);
-  -webkit-box-shadow: 12px 40px 40px rgba(0, 0, 0, 0.25);
-}
-
-.problems .item:after {
-  /* Additional styles for problem cards */
-  content: "";
-  display: block;
-  position: absolute;
-  height: 400px;
-  width: 100%;
-  left: 0;
-  top: 0;
-  background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
-}
-
-.problems .item-desc {
-  /* Styles for main text in problem cards */
-  padding: 0 24px 12px;
-  color: #fff;
-  position: relative;
-  z-index: 1;
-  overflow: hidden;
-  transform: translateY(calc(100% - 54px));
-  -webkit-transform: translateY(calc(100% - 54px));
-  transition: all 0.4s ease-in-out;
-  -webkit-transition: all 0.4s ease-in-out;
-}
-
-.problems .item.active .item-desc {
-  /* Show all text when card is active (clicked) */
-  transform: none;
-  -webkit-transform: none;
-}
-
-.problems .item-desc p {
-  /* Make text not visible when card is not active (clicked) */
-  opacity: 0;
-  -webkit-transform: translateY(32px);
-  transform: translateY(32px);
-  transition: all 0.4s ease-in-out 0.2s;
-  -webkit-transition: all 0.4s ease-in-out 0.2s;
-}
-
-.problems .item.active .item-desc p {
-  /* Make text visible when card is active (clicked) */
-  opacity: 1;
-  -webkit-transform: translateY(0);
-  transform: translateY(0);
-}
-
 /* ----------- Learn More ------------*/
 
 /* --- Iceberg --- */
@@ -322,14 +243,10 @@
   margin: 50px auto;
 }
 
-/* --- Animals --- */
-.animals .item .animal {
+/* --- Class CSS --- */
+.class {
   cursor: pointer;
   max-height: 500px;
-}
-
-.animals .item .item-desc .bubble {
-  /* Styles for information for animal (invisible when inactive) */
   background-color: var(--color-10);
   border-radius: 40px;
   border: 10px solid #3479a0;
@@ -339,19 +256,6 @@
   display: none;
   font-family: var(--navbar-font-type);
   margin: 20px auto;
-}
-
-.animals .item.active .item-desc .bubble {
-  /* Make information for animal visible when active (clicked) */
-  opacity: 1;
-  display: block;
-  animation: fadeIn 1s;
-}
-
-.animal-font {
-  /* Font style for animal label */
-  color: white;
-  font-family: var(--animal-font-type);
 }
 
 /* ----------- About Us ----------- */

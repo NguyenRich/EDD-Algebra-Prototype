@@ -1,0 +1,169 @@
+// level-1.js
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+import { getDatabase, ref, get, child, update } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBHTLiF_y8AOaDzWqf_iX93XjhOCLSLahc",
+  authDomain: "edd-algebra.firebaseapp.com",
+  databaseURL: "https://edd-algebra-default-rtdb.firebaseio.com",
+  projectId: "edd-algebra",
+  storageBucket: "edd-algebra.firebasestorage.app",
+  messagingSenderId: "194608581423",
+  appId: "1:194608581423:web:060535491082ad1e9befda"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+function getCurrentUser() {
+  let userData = localStorage.getItem("user") || sessionStorage.getItem("user");
+  return userData ? JSON.parse(userData) : null;
+}
+
+let questions = [];
+let currentQuestionIndex = 0;
+let score = 0;
+let lives = 3;
+let classCode = null;
+const level = 1;
+
+const lifeDisplay = document.getElementById("lifeCount");
+
+// ---------------- Load Questions ---------------- //
+async function loadQuestions() {
+  const user = getCurrentUser();
+  if (!user) {
+    alert("You must be logged in to take this quiz.");
+    window.location = "/student-home";
+    return;
+  }
+
+  const dbRef = ref(db);
+  const userSnap = await get(child(dbRef, "users/" + user.uid));
+  classCode = userSnap.val()?.classroomCode;
+
+  if (!classCode) {
+    alert("You are not assigned to any classroom.");
+    window.location = "/student-home";
+    return;
+  }
+
+  const questionsSnap = await get(child(dbRef, `classrooms/${classCode}/levels/${level}`));
+  if (!questionsSnap.exists()) {
+    document.getElementById("quizContent").innerHTML = `<p>No questions available for this level yet.</p>`;
+    return;
+  }
+
+  const data = questionsSnap.val();
+  questions = Object.values(data).sort(() => Math.random() - 0.5);
+
+  displayQuestion();
+}
+
+// ---------------- Display Question ---------------- //
+function displayQuestion() {
+  const questionObj = questions[currentQuestionIndex];
+  const questionText = document.getElementById("questionText");
+  const choicesContainer = document.getElementById("choicesContainer");
+
+  questionText.textContent = `Q${currentQuestionIndex + 1}: ${questionObj.question}`;
+  choicesContainer.innerHTML = "";
+
+  questionObj.choices.forEach((choice, i) => {
+    const btn = document.createElement("button");
+    btn.className = "btn btn-outline-dark py-2";
+    btn.textContent = choice;
+    btn.onclick = () => handleAnswer(i);
+    choicesContainer.appendChild(btn);
+  });
+
+  document.getElementById("nextBtn").style.display = "none";
+}
+
+// ---------------- Handle Answer ---------------- //
+function handleAnswer(selectedIndex) {
+  const questionObj = questions[currentQuestionIndex];
+  const correct = selectedIndex === questionObj.correctIndex;
+
+  const buttons = document.querySelectorAll("#choicesContainer button");
+  buttons.forEach((btn, idx) => {
+    btn.disabled = true;
+    if (idx === questionObj.correctIndex) {
+      btn.classList.add("btn-success");
+    } else if (idx === selectedIndex) {
+      btn.classList.add("btn-danger");
+    }
+  });
+
+  if (correct) {
+    score++;
+  } else {
+    lives--;
+    lifeDisplay.textContent = lives;
+    if (lives <= 0) {
+      failLevel();
+      return;
+    }
+  }
+
+  document.getElementById("nextBtn").style.display = "block";
+}
+
+// ---------------- Next Question ---------------- //
+document.getElementById("nextBtn").onclick = function () {
+  currentQuestionIndex++;
+  if (currentQuestionIndex < questions.length) {
+    displayQuestion();
+  } else {
+    finishQuiz();
+  }
+};
+
+// ---------------- Finish Quiz (success) ---------------- //
+async function finishQuiz() {
+  document.getElementById("quizContent").classList.add("d-none");
+  document.getElementById("resultContent").classList.remove("d-none");
+
+  document.getElementById("resultTitle").textContent = "Level Complete!";
+  const percentage = Math.round((score / questions.length) * 100);
+  document.getElementById("scoreText").textContent = `You got ${score} out of ${questions.length} correct (${percentage}%).`;
+
+  await saveScore(percentage);
+}
+
+// ---------------- Fail Quiz (out of lives) ---------------- //
+async function failLevel() {
+  document.getElementById("quizContent").classList.add("d-none");
+  document.getElementById("resultContent").classList.remove("d-none");
+
+  document.getElementById("resultTitle").textContent = "You Lost All Your Lives!";
+  const percentage = Math.round((score / questions.length) * 100);
+  document.getElementById("scoreText").textContent = `You answered ${score} correctly before failing. Your score: ${percentage}%.`;
+
+  await saveScore(percentage);
+}
+
+// ---------------- Save Score ---------------- //
+async function saveScore(percentage) {
+  const user = getCurrentUser();
+  if (!user || !classCode) return;
+
+  // Save the score for this student under their classroom and level
+  try {
+    await update(ref(db, `users/${user.uid}/scores/${classCode}`), {
+      [level]: percentage
+    });
+    console.log(`Saved score ${percentage}% for level ${level} in classroom ${classCode}`);
+  } catch (error) {
+    console.error("Error saving score:", error);
+  }
+}
+
+// ---------------- Back to Home ---------------- //
+document.getElementById("backHome").onclick = function () {
+  window.location = "/student-home";
+};
+
+// ---------------- Init ---------------- //
+window.onload = loadQuestions;

@@ -1,6 +1,6 @@
 # Filename: app.py
-# Purpose: Flask app for Research Website
-# Coded By: Richard Nguyen, Aditya Choudhary, Dorisa Sun, Yanna Varouhakis
+# Purpose: Flask app for EDD
+# Coded By: Richard Nguyen, Audrey Wang, Haley Ryan
 
 from flask import Flask, render_template, url_for, request, jsonify
 from datetime import datetime
@@ -13,8 +13,33 @@ app = Flask(__name__)
 @app.route("/")             # Landing Page
 def index():
     return render_template("index.html")
+@app.route("/about")
+def about():
+    return render_template("about.html")
+@app.route("/register")
+def register():
+    return render_template("register.html")
+@app.route("/student-sign-in")
 def studentSignIn():
     return render_template("student-sign-in.html")
+@app.route("/teacher-sign-in")
+def teacherSignIn():
+    return render_template("teacher-sign-in.html")
+@app.route("/student-home")
+def studentHome():
+    return render_template("student-home.html")
+@app.route("/teacher-home")
+def teacherHome():
+    return render_template("teacher-home.html")
+@app.route("/import-questions")
+def importQuestions():
+    return render_template("import-questions.html")
+@app.route("/levels")
+def levels():
+    return render_template("levels.html")
+@app.route("/level-1")
+def level1():
+    return render_template("level-1.html")
 
 # Run server on local IP address on port 5000
 # Replace the: ***,***,*** between the quotes with your laptop's IP address

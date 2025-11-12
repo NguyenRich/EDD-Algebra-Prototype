@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<section class="title-space pb-5 px-3" style="height: auto;">
+  <div class="container text-center pt-4">
+    <h1 class="display-1 title-font">Import Questions</h1>
+    <h2 class="mt-3" style="font-size: 40px;">Add Questions to Your Classroom Levels</h2>
+  </div>
+</section>
+
+<section class="container py-5">
+
+  <!-- Select Classroom and Level -->
+  <div class="card p-4 mb-5 rounded-4 shadow">
+    <h3 class="text-center mb-3">Select Classroom and Level</h3>
+    <div class="row justify-content-center">
+      <div class="col-md-5">
+        <label for="classroomSelect" class="form-label">Classroom</label>
+        <select id="classroomSelect" class="form-control mb-3">
+          <option disabled selected>Select a Classroom</option>
+        </select>
+      </div>
+      <div class="col-md-5">
+        <label for="levelSelect" class="form-label">Level</label>
+        <select id="levelSelect" class="form-control mb-3">
+          <option disabled selected>Select a Level</option>
+          <option value="1">Level 1</option>
+          <option value="2">Level 2</option>
+          <option value="3">Level 3</option>
+          <option value="4">Level 4</option>
+          <option value="5">Level 5</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Question Form -->
+  <div class="card p-4 rounded-4 shadow">
+    <h3 class="text-center mb-4">Add a New Question</h3>
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <input type="text" id="questionText" class="form-control mb-3" placeholder="Enter Question Text">
+        <div id="choicesContainer">
+          <input type="text" class="form-control mb-2 choice-input" placeholder="Choice A">
+          <input type="text" class="form-control mb-2 choice-input" placeholder="Choice B">
+          <input type="text" class="form-control mb-2 choice-input" placeholder="Choice C">
+          <input type="text" class="form-control mb-2 choice-input" placeholder="Choice D">
+        </div>
+
+        <label class="form-label mt-3">Select Correct Answer:</label>
+        <select id="correctChoice" class="form-control mb-4">
+          <option disabled selected>Select Correct Option</option>
+          <option value="0">Choice A</option>
+          <option value="1">Choice B</option>
+          <option value="2">Choice C</option>
+          <option value="3">Choice D</option>
+        </select>
+
+        <button id="addQuestionBtn" class="btn btn-primary w-100">Add Question</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Existing Questions Display -->
+  <div class="card p-4 rounded-4 shadow">
+    <h3 class="text-center mb-4">Existing Questions</h3>
+    <div id="questionsList" class="list-group"></div>
+  </div>
+
+</section>
+
+<script type="module" src="{{ url_for('static', filename='js/import-questions.js') }}"></script>
+
+{% endblock content %}
