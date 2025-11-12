@@ -55,4 +55,4 @@ async function loadLevels() {
   }
 }
 
-window.onload = loadLevels;
+window.addEventListener("load", loadLevels, false)

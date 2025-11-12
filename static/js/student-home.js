@@ -83,4 +83,4 @@ document.getElementById("goToLevels").onclick = function () {
   window.location = "levels";
 };
 
-window.onload = loadStudentInfo;
+window.addEventListener("load", loadStudentInfo, false)

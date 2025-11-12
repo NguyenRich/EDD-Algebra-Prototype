@@ -40,6 +40,19 @@ def levels():
 @app.route("/level-1")
 def level1():
     return render_template("level-1.html")
+@app.route("/level-2")
+def level2():
+    return render_template("level-2.html")
+@app.route("/level-3")
+def level3():
+    return render_template("level-3.html")
+@app.route("/level-4")
+def level4():
+    return render_template("level-4.html")
+@app.route("/level-5")
+def level5():
+    return render_template("level-5.html")
+
 
 # Run server on local IP address on port 5000
 # Replace the: ***,***,*** between the quotes with your laptop's IP address

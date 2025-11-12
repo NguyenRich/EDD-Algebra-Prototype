@@ -151,4 +151,4 @@ document.getElementById("classroomSelect").addEventListener("change", loadQuesti
 document.getElementById("levelSelect").addEventListener("change", loadQuestions);
 
 // ---------------- Init ---------------- //
-window.onload = loadClassrooms;
+window.addEventListener("load", loadClassrooms, false)

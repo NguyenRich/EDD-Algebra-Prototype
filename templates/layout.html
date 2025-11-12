@@ -36,8 +36,6 @@ Program Description: Layout template for other html pages of website
     <script type="module" src="{{url_for('static', filename='js/sign-in.js')}}" defer></script>
     <script type="module" src="{{url_for('static', filename='js/register.js')}}" defer></script>
 
-
-
 </head>
 
 <body class="body-background-color">
@@ -71,7 +69,7 @@ Program Description: Layout template for other html pages of website
                     </li>
                     <li class="nav-item">
                         <a href="{{url_for('register')}}"
-                            class="nav-link hover-underline-animation nb-menu-item text-white main-font">Create New
+                            id="register" class="nav-link hover-underline-animation nb-menu-item text-white main-font">Create New
                             Account</a>
                     </li>
                     <li class="nav-item dropdown">

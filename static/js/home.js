@@ -36,10 +36,10 @@ const dbref = ref(db);
 
 
 // ---------------------// Get reference values -----------------------------
-let register = document.getElementById('signInMenu');   // Register menu link
+let signIn = document.getElementById('signInMenu');   // signIn menu link
+let register = document.getElementById('register');   // Register menu link
 let userLink = document.getElementById('userLink');   // User name for navbar
 let signOutLink = document.getElementById('signOut')  // Sign out link
-let welcome = document.getElementById('welcome');     // Welcome header
 let currentUser = null;                               // Initialize current user to null 
 
 
@@ -76,7 +76,7 @@ function signOutUser() {
 }
 
 // --------------------------- Home Page Loading -----------------------------
-window.onload = function () {
+window.addEventListener("load", function () {
 
 
   // ------------------------- Set Welcome Message -------------------------
@@ -87,18 +87,22 @@ window.onload = function () {
   }
   else {
     userLink.innerText = currentUser.firstname;
+    if (currentUser.accountType == "Student")
+      userLink.href = "student-home"
+    else
+      userLink.href = "teacher-home"
     register.classList.add('d-none');
+    signIn.classList.add('d-none');
   }
 
   if (currentUser == null) {
-    welcome.innerText = 'Please register/sign in before continuing!';
   }
   else {
-    welcome.innerText = 'Welcome ' + currentUser.firstname + '!';
     register.classList.add('d-none');
     document.getElementById('signOut').onclick = function () {
       signOutUser();
     }
   }
 
-}
+}, false)
+

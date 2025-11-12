@@ -26,7 +26,7 @@ let currentQuestionIndex = 0;
 let score = 0;
 let lives = 3;
 let classCode = null;
-const level = 1;
+const level = 5;
 
 const lifeDisplay = document.getElementById("lifeCount");
 

@@ -170,7 +170,7 @@ async function displayStudentScores() {
 }
 
 // ---------------- Initialize ---------------- //
-window.onload = function () {
+window.addEventListener("load", function () {
   displayClassrooms();
   displayStudentScores();
-};
+}, false)
