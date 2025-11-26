@@ -20,8 +20,10 @@ Program Description: Layout template for other html pages of website
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Concert+One&family=DynaPuff:wght@400..700&family=REM:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Bruno+Ace&family=Concert+One&family=DynaPuff:wght@400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=REM:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -45,7 +47,7 @@ Program Description: Layout template for other html pages of website
         <div class="container-fluid">
             <!-- Website Icon + Website Name -->
             <a href="/" class="navbar-brand nb-font">
-                <img src="img/orglogo.png" alt="Website Logo" class="d-inline-block align-text-top logo">
+                <img src="{{url_for('static', filename='img/darby.png')}}" alt="Website Logo" class="d-inline-block align-text-top logo">
             </a>
             <a href="/" class="navbar-brand nb-title-font py-2 main-font"> Dinosaur Math (placeholder) <span
                     class="px-2 slogan nav-font">Making Math Exciting!</span></a>
@@ -63,13 +65,8 @@ Program Description: Layout template for other html pages of website
                         <a id="userLink" class="nav-link nb-menu-item text-white main-font" href="">User Name</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{url_for('about')}}"
-                            class="nav-link hover-underline-animation nb-menu-item text-white main-font">About
-                            Us</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{url_for('register')}}"
-                            id="register" class="nav-link hover-underline-animation nb-menu-item text-white main-font">Create New
+                        <a href="{{url_for('register')}}" id="register"
+                            class="nav-link hover-underline-animation nb-menu-item text-white main-font">Create New
                             Account</a>
                     </li>
                     <li class="nav-item dropdown">
@@ -82,7 +79,7 @@ Program Description: Layout template for other html pages of website
                     </li>
                     <li class="nav-item nbMenuItem">
                         <a id="signOut" class="nav-link hover-underline-animation nb-menu-item text-white main-font"
-                            href="">Sign Out</a>
+                            href="/">Sign Out</a>
                     </li>
                 </ul>
             </div>
@@ -98,7 +95,7 @@ Program Description: Layout template for other html pages of website
             <div class="row">
                 <!-- Section Containing Website Logo/Mascot -->
                 <div class="col-md-3">
-                    <img src="img/alto.png" class="footer-alto bobble-img" alt="footer-alto">
+                    <img src="{{url_for('static', filename='img/darby.png')}}" class="footer-alto bobble-img" alt="footer-alto">
                 </div>
 
                 <!-- Links to Social Media (non-functional) -->
@@ -114,9 +111,7 @@ Program Description: Layout template for other html pages of website
                 <!-- Links to Other Pages -->
                 <div class="col-md-3">
                     <h5 class="main-font">Quick Links</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="about.html" class="text-light main-font">About</a></li>
-                    </ul>
+
                 </div>
 
                 <!-- Copyright Info -->

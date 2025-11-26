@@ -1,5 +1,4 @@
-// level-1.js
-
+// level-4.js
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
 import { getDatabase, ref, get, child, update } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
 
@@ -27,8 +26,17 @@ let score = 0;
 let lives = 3;
 let classCode = null;
 const level = 4;
+let introPlayed = false;
+let midPlayed = false;
 
 const lifeDisplay = document.getElementById("lifeCount");
+
+const videoContainer = document.getElementById("videoContainer");
+const videoPlayer = document.getElementById("levelVideo");
+
+const introVideo = "/static/videos/level-1-start.mp4";
+const midVideo = "/static/videos/level-1-mid.mp4";
+const endVideo = "/static/videos/level-1-end.mp4";
 
 // ---------------- Load Questions ---------------- //
 async function loadQuestions() {
@@ -56,13 +64,28 @@ async function loadQuestions() {
   }
 
   const data = questionsSnap.val();
-  questions = Object.values(data).sort(() => Math.random() - 0.5);
+  questions = Object.values(data);
 
-  displayQuestion();
+  // Play intro before showing first question
+  playVideo(introVideo, () => {
+    introPlayed = true;
+    displayQuestion();
+  });
 }
 
 // ---------------- Display Question ---------------- //
 function displayQuestion() {
+  // Hide video if it's showing
+  videoContainer.classList.add("d-none");
+
+  // MIDPOINT VIDEO CHECK
+  const halfwayIndex = Math.floor(questions.length / 2);
+  if (!midPlayed && currentQuestionIndex === halfwayIndex) {
+    midPlayed = true;
+    playVideo(midVideo, () => displayQuestion());
+    return;
+  }
+
   const questionObj = questions[currentQuestionIndex];
   const questionText = document.getElementById("questionText");
   const choicesContainer = document.getElementById("choicesContainer");
@@ -81,6 +104,22 @@ function displayQuestion() {
   document.getElementById("nextBtn").style.display = "none";
 }
 
+// ---------------- Video Player ---------------- //
+function playVideo(src, callback) {
+  document.getElementById("quizContent").classList.add("d-none");
+  videoContainer.classList.remove("d-none");
+
+  videoPlayer.src = src;
+  videoPlayer.currentTime = 0;
+  videoPlayer.play();
+
+  videoPlayer.onended = () => {
+    videoContainer.classList.add("d-none");
+    document.getElementById("quizContent").classList.remove("d-none");
+    callback();
+  };
+}
+
 // ---------------- Handle Answer ---------------- //
 function handleAnswer(selectedIndex) {
   const questionObj = questions[currentQuestionIndex];
@@ -89,11 +128,8 @@ function handleAnswer(selectedIndex) {
   const buttons = document.querySelectorAll("#choicesContainer button");
   buttons.forEach((btn, idx) => {
     btn.disabled = true;
-    if (idx === questionObj.correctIndex) {
-      btn.classList.add("btn-success");
-    } else if (idx === selectedIndex) {
-      btn.classList.add("btn-danger");
-    }
+    if (idx === questionObj.correctIndex) btn.classList.add("btn-success");
+    else if (idx === selectedIndex) btn.classList.add("btn-danger");
   });
 
   if (correct) {
@@ -113,10 +149,12 @@ function handleAnswer(selectedIndex) {
 // ---------------- Next Question ---------------- //
 document.getElementById("nextBtn").onclick = function () {
   currentQuestionIndex++;
+
   if (currentQuestionIndex < questions.length) {
     displayQuestion();
   } else {
-    finishQuiz();
+    // Play end video before showing results
+    playVideo(endVideo, () => finishQuiz());
   }
 };
 
@@ -125,9 +163,10 @@ async function finishQuiz() {
   document.getElementById("quizContent").classList.add("d-none");
   document.getElementById("resultContent").classList.remove("d-none");
 
-  document.getElementById("resultTitle").textContent = "Level Complete!";
   const percentage = Math.round((score / questions.length) * 100);
-  document.getElementById("scoreText").textContent = `You got ${score} out of ${questions.length} correct (${percentage}%).`;
+  document.getElementById("resultTitle").textContent = "Level Complete!";
+  document.getElementById("scoreText").textContent =
+    `You got ${score} out of ${questions.length} correct (${percentage}%).`;
 
   await saveScore(percentage);
 }
@@ -137,9 +176,10 @@ async function failLevel() {
   document.getElementById("quizContent").classList.add("d-none");
   document.getElementById("resultContent").classList.remove("d-none");
 
-  document.getElementById("resultTitle").textContent = "You Lost All Your Lives!";
   const percentage = Math.round((score / questions.length) * 100);
-  document.getElementById("scoreText").textContent = `You answered ${score} correctly before failing. Your score: ${percentage}%.`;
+  document.getElementById("resultTitle").textContent = "You Lost All Your Lives!";
+  document.getElementById("scoreText").textContent =
+    `You answered ${score} correctly before failing. Your score: ${percentage}%.`;
 
   await saveScore(percentage);
 }
@@ -149,21 +189,19 @@ async function saveScore(percentage) {
   const user = getCurrentUser();
   if (!user || !classCode) return;
 
-  // Save the score for this student under their classroom and level
   try {
     await update(ref(db, `users/${user.uid}/scores/${classCode}`), {
       [level]: percentage
     });
-    console.log(`Saved score ${percentage}% for level ${level} in classroom ${classCode}`);
   } catch (error) {
     console.error("Error saving score:", error);
   }
 }
 
 // ---------------- Back to Home ---------------- //
-document.getElementById("backHome").onclick = function () {
+document.getElementById("backHome").onclick = () => {
   window.location = "/student-home";
 };
 
 // ---------------- Init ---------------- //
-window.addEventListener("load", loadQuestions, false)
+window.addEventListener("load", loadQuestions, false);

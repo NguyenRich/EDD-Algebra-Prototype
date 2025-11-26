@@ -40,7 +40,7 @@ async function loadStudentInfo() {
         <p><strong>Class Name:</strong> ${classroom.className}</p>
         <p><strong>Teacher:</strong> ${classroom.teacherName}</p>
         <p><strong>Class Code:</strong> ${code}</p>
-        <p class="text-success">You are already enrolled in this class.</p>
+        <p class="success-texxt">You are already enrolled in this class.</p>
       `;
     }
   }
