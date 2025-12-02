@@ -10,7 +10,9 @@ Program Description: Layout template for other html pages of website
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dinosaur Math</title>
+    <title>Era of Equations</title>
+      <link rel="icon" type="image/x-icon" href="/static/img/darby.png">
+
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -49,8 +51,8 @@ Program Description: Layout template for other html pages of website
             <a href="/" class="navbar-brand nb-font">
                 <img src="{{url_for('static', filename='img/darby.png')}}" alt="Website Logo" class="d-inline-block align-text-top logo">
             </a>
-            <a href="/" class="navbar-brand nb-title-font py-2 main-font"> Dinosaur Math (placeholder) <span
-                    class="px-2 slogan nav-font">Making Math Exciting!</span></a>
+            <a href="/" class="navbar-brand nb-title-font py-2 main-font">Era of Equations<span
+                    class="px-2 slogan nav-font">Exploring Algebra!</span></a>
 
             <!-- Hamburger Menu Button -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
@@ -62,7 +64,7 @@ Program Description: Layout template for other html pages of website
                 <!-- Links to hamburger menu button -->
                 <ul class="navbar-nav ms-auto nb-font">
                     <li class="nav-item">
-                        <a id="userLink" class="nav-link nb-menu-item text-white main-font" href="">User Name</a>
+                        <a id="userLink" class="nav-link nb-menu-item text-white main-font" href="">Name</a>
                     </li>
                     <li class="nav-item">
                         <a href="{{url_for('register')}}" id="register"
@@ -94,39 +96,24 @@ Program Description: Layout template for other html pages of website
         <div class="wider-container container-fluid pb-5">
             <div class="row">
                 <!-- Section Containing Website Logo/Mascot -->
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <img src="{{url_for('static', filename='img/darby.png')}}" class="footer-alto bobble-img" alt="footer-alto">
                 </div>
 
                 <!-- Links to Social Media (non-functional) -->
-                <div class="col-md-3">
-                    <h5 class="main-font">Follow Us</h5>
-                    <i class="fab fa-facebook"></i>
-                    <i class="fab fa-instagram"></i>
-                    <i class="fab fa-youtube"></i>
-                    <i class="fab fa-twitter"></i>
-                    <p>Note: These social media icons are not functional</p>
-                </div>
-
-                <!-- Links to Other Pages -->
-                <div class="col-md-3">
-                    <h5 class="main-font">Quick Links</h5>
-
+                <div class="col-md-4">
+                    <h5 class="main-font">Note</h5>
+                    <p>This website is a prototype. You may encounter bugs or errors while using the website.</p>
                 </div>
 
                 <!-- Copyright Info -->
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <h5 class="main-font">About</h5>
                     <p class="main-font">Copyright &copy; EDD 2025-2026 Project </p>
                     <p class="main-font">Designed By: Haley Ryan Audrey Wang, and Richard Nguyen </p>
                 </div>
             </div>
         </div>
-
-        <!-- Arrow to Top -->
-        <a href="#" class="p-1 m-1">
-            <img src="img/anchor.png" class="footer-img" alt="Anchor Arrow">
-        </a>
     </footer>
     </section>
 </body>
