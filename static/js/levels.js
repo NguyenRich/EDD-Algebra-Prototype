@@ -53,6 +53,22 @@ async function loadLevels() {
             High Score: ${score}%
     `;
   }
+
+  // Load due dates for each level
+  for (let i = 1; i <= 5; i++) {
+    const dueDateElement = document.getElementById(`due-date-level-${i}`);
+    if (!dueDateElement) continue;
+
+    const levelSnap = await get(child(dbRef, `classrooms/${classCode}/levels/${i}/dueDate`));
+
+    if (levelSnap.exists() && levelSnap.val()) {
+      const date = levelSnap.val();
+      const formatted = new Date(date).toLocaleDateString();
+      dueDateElement.textContent = "Due: " + formatted;
+    } else {
+      dueDateElement.textContent = "No due date";
+    }
+  }
 }
 
 window.addEventListener("load", loadLevels, false)

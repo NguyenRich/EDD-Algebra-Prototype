@@ -33,6 +33,19 @@
         </select>
       </div>
     </div>
+    <div class="row justify-content-center">
+      <div class="col-md-5 mt-3">
+        <label for="dueDateInput" class="form-label">Level Due Date (Optional)</label>
+        <input type="date" id="dueDateInput" class="form-control">
+      </div>
+
+      <div class="col-md-5 mt-4">
+        <button id="saveDueDateBtn" class="btn btn-secondary w-100">
+          Save Level Due Date
+        </button>
+      </div>
+    </div>
+
   </div>
 
   <!-- Add Question Form -->
@@ -56,6 +69,10 @@
           <option value="2">Choice C</option>
           <option value="3">Choice D</option>
         </select>
+
+        <label class="form-label mt-3">Timer (Optional)</label>
+        <input type="number" id="timerInput" class="form-control mb-4"
+          placeholder="Enter seconds (leave blank for no timer)" min="1">
 
         <button id="addQuestionBtn" class="btn btn-primary w-100">Add Question</button>
       </div>

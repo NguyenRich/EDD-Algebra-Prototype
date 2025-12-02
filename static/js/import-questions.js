@@ -60,6 +60,8 @@ async function loadQuestions() {
   const questionsList = document.getElementById("questionsList");
 
   questionsList.innerHTML = "<p class='text-center'>Loading questions...</p>";
+  await loadDueDate();
+
 
   if (!classCode || !level) {
     questionsList.innerHTML = "<p class='text-center text-muted'>Select a classroom and level.</p>";
@@ -78,16 +80,22 @@ async function loadQuestions() {
 
   for (const qid in questions) {
     const q = questions[qid];
+
+    const timerText = q.timer ? `${q.timer} seconds` : "No timer";
+
     const questionHTML = `
       <div class="list-group-item p-3 mb-2 border rounded shadow-sm">
         <h5><strong>${q.question}</strong></h5>
+
+        <p class="text-primary"><strong>Timer:</strong> ${timerText}</p>
+
         <ol type="A">
           ${q.choices
-            .map(
-              (c, i) =>
-                `<li class="${i === q.correctIndex ? "fw-bold text-success" : ""}">${c}</li>`
-            )
-            .join("")}
+        .map(
+          (c, i) =>
+            `<li class="${i === q.correctIndex ? "fw-bold text-success" : ""}">${c}</li>`
+        )
+        .join("")}
         </ol>
         <button class="btn btn-danger btn-sm mt-2" data-qid="${qid}">Delete</button>
       </div>
@@ -107,12 +115,57 @@ async function loadQuestions() {
   });
 }
 
+// ---------------- Save Level Due Date ---------------- //
+document.getElementById("saveDueDateBtn").onclick = async function () {
+  const classCode = document.getElementById("classroomSelect").value;
+  const level = document.getElementById("levelSelect").value;
+  const dueDate = document.getElementById("dueDateInput").value;
+
+  // Fully block saving when not selected
+  if (!classCode || classCode === "Select a Classroom") {
+    alert("Please select a classroom before saving a due date.");
+    return;
+  }
+
+  if (!level || level === "Select a Level") {
+    alert("Please select a level before saving a due date.");
+    return;
+  }
+
+  try {
+    await set(ref(db, `classrooms/${classCode}/levels/${level}/dueDate`),
+      dueDate || null
+    );
+    alert("Due date saved.");
+  } catch (err) {
+    console.error(err);
+    alert("Error saving due date.");
+  }
+};
+
+// ---------------- Load Level Due Date ---------------- //
+async function loadDueDate() {
+  const classCode = document.getElementById("classroomSelect").value;
+  const level = document.getElementById("levelSelect").value;
+
+  const dueDateInput = document.getElementById("dueDateInput");
+  dueDateInput.value = "";
+
+  if (!classCode || !level) return;
+
+  const snapshot = await get(ref(db, `classrooms/${classCode}/levels/${level}/dueDate`));
+  if (snapshot.exists()) {
+    dueDateInput.value = snapshot.val();
+  }
+}
+
 // ---------------- Add Question ---------------- //
 document.getElementById("addQuestionBtn").onclick = async function () {
   const classCode = document.getElementById("classroomSelect").value;
   const level = document.getElementById("levelSelect").value;
   const questionText = document.getElementById("questionText").value.trim();
   const correctIndex = document.getElementById("correctChoice").value;
+  const timerValue = document.getElementById("timerInput").value.trim();
   const choiceInputs = document.querySelectorAll(".choice-input");
   const choices = Array.from(choiceInputs).map(c => c.value.trim());
 
@@ -126,10 +179,23 @@ document.getElementById("addQuestionBtn").onclick = async function () {
     return;
   }
 
+  // Parse timer or allow empty = null
+  let timer = null;
+  if (timerValue !== "") {
+    const parsed = parseInt(timerValue);
+    if (isNaN(parsed) || parsed <= 0) {
+      alert("Timer must be a positive number of seconds or left blank.");
+      return;
+    }
+    timer = parsed;
+  }
+
+
   const newQuestion = {
     question: questionText,
     choices: choices,
     correctIndex: parseInt(correctIndex),
+    timer: timer
   };
 
   try {
@@ -137,6 +203,7 @@ document.getElementById("addQuestionBtn").onclick = async function () {
     await set(questionRef, newQuestion);
     alert("Question added successfully!");
     document.getElementById("questionText").value = "";
+    document.getElementById("timerInput").value = "";
     choiceInputs.forEach(c => (c.value = ""));
     document.getElementById("correctChoice").selectedIndex = 0;
     loadQuestions();
