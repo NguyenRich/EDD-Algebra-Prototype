@@ -46,7 +46,7 @@ async function loadQuestions() {
   const user = getCurrentUser();
   if (!user) {
     alert("You must be logged in to take this quiz.");
-    window.location = "/student-home.html";
+    window.location = "student-home.html";
     return;
   }
 
@@ -56,7 +56,7 @@ async function loadQuestions() {
 
   if (!classCode) {
     alert("You are not assigned to any classroom.");
-    window.location = "/student-home.html";
+    window.location = "student-home.html";
     return;
   }
 
@@ -263,7 +263,7 @@ async function saveScore(percentage) {
 
 // ---------------- Back to Home ---------------- //
 document.getElementById("backHome").onclick = () => {
-  window.location = "/student-home.html";
+  window.location = "student-home.html";
 };
 
 // ---------------- Init ---------------- //

@@ -126,7 +126,7 @@ function logIn(user, fbcfg) {
         })
 
         // alert(fbcfg);
-        window.location = '/';
+        window.location = 'index.html';
     }
 
 }

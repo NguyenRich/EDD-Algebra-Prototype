@@ -72,7 +72,7 @@ function signOutUser() {
     // Error occured 
   });
 
-  window.location = '/'
+  window.location = 'index.html'
 }
 
 // --------------------------- Home Page Loading -----------------------------
