@@ -66,14 +66,9 @@ async function loadQuestions() {
     return;
   }
 
-  
+
   await loadDueDate();
 
-
-  if (!classCode || !level) {
-    questionsList.innerHTML = "<p class='text-center text-muted'>Select a classroom and level.</p>";
-    return;
-  }
 
   const snapshot = await get(ref(db, `classrooms/${classCode}/levels/${level}`));
 
