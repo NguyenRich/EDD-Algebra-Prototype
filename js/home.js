@@ -72,7 +72,7 @@ function signOutUser() {
     // Error occured 
   });
 
-  window.location = 'home'
+  window.location = '/'
 }
 
 // --------------------------- Home Page Loading -----------------------------
@@ -88,9 +88,9 @@ window.addEventListener("load", function () {
   else {
     userLink.innerText = currentUser.firstname;
     if (currentUser.accountType == "Student")
-      userLink.href = "student-home"
+      userLink.href = "student-home.html"
     else
-      userLink.href = "teacher-home"
+      userLink.href = "teacher-home.html"
     register.classList.add('d-none');
     signIn.classList.add('d-none');
   }

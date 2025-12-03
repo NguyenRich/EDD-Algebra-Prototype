@@ -1,9 +1,3 @@
-<!-- 
-Program: layout.html
-Names: Richard Nguyen, Audrey Wang, Haley Ryan
-Program Description: Layout template for other html pages of website
-!-->
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,7 +5,7 @@ Program Description: Layout template for other html pages of website
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Era of Equations</title>
-      <link rel="icon" type="image/x-icon" href="/static/img/darby.png">
+      <link rel="icon" type="image/x-icon" href="/img/darby.png">
 
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -27,7 +21,7 @@ Program Description: Layout template for other html pages of website
     <link
         href="https://fonts.googleapis.com/css2?family=Bruno+Ace&family=Concert+One&family=DynaPuff:wght@400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=REM:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
+    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
@@ -36,9 +30,9 @@ Program Description: Layout template for other html pages of website
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js" defer
         integrity="sha512-E8QSvWZ0eCLGk4km3hxSsNmGWbLtSCSUcewDQPQWZF6pEU8GlT8a5fF32wOl1i8ftdMhssTrF/OhyGWwonTcXA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script type="module" src="{{url_for('static', filename='js/home.js')}}" defer></script>
-    <script type="module" src="{{url_for('static', filename='js/sign-in.js')}}" defer></script>
-    <script type="module" src="{{url_for('static', filename='js/register.js')}}" defer></script>
+    <script type="module" src="js/home.js" defer></script>
+    <script type="module" src="js/sign-in.js" defer></script>
+    <script type="module" src="js/register.js" defer></script>
 
 </head>
 
@@ -49,7 +43,7 @@ Program Description: Layout template for other html pages of website
         <div class="container-fluid">
             <!-- Website Icon + Website Name -->
             <a href="/" class="navbar-brand nb-font">
-                <img src="{{url_for('static', filename='img/darby.png')}}" alt="Website Logo" class="d-inline-block align-text-top logo">
+                <img src="img/darby.png" alt="Website Logo" class="d-inline-block align-text-top logo">
             </a>
             <a href="/" class="navbar-brand nb-title-font py-2 main-font">Era of Equations<span
                     class="px-2 slogan nav-font">Exploring Algebra!</span></a>
@@ -67,7 +61,7 @@ Program Description: Layout template for other html pages of website
                         <a id="userLink" class="nav-link nb-menu-item text-white main-font" href="">Name</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{url_for('register')}}" id="register"
+                        <a href="/register.html" id="register"
                             class="nav-link hover-underline-animation nb-menu-item text-white main-font">Create New
                             Account</a>
                     </li>
@@ -75,8 +69,8 @@ Program Description: Layout template for other html pages of website
                         <a href="#" class="nav-link hover-underline-animation nb-menu-item text-white main-font"
                             id="signInMenu" data-bs-toggle="dropdown" aria-expanded="false">Sign In</a>
                         <ul class="dropdown-menu" aria-labelledby="registerMenu">
-                            <li><a class="dropdown-item" href="{{url_for('studentSignIn')}}">Student Sign In</a></li>
-                            <li><a class="dropdown-item" href="{{url_for('teacherSignIn')}}">Teacher Sign In</a></li>
+                            <li><a class="dropdown-item" href="/student-sign-in.html">Student Sign In</a></li>
+                            <li><a class="dropdown-item" href="/teacher-sign-in.html">Teacher Sign In</a></li>
                         </ul>
                     </li>
                     <li class="nav-item nbMenuItem">
@@ -88,16 +82,106 @@ Program Description: Layout template for other html pages of website
         </div>
     </nav>
 
-    <!-- Body content -->
-    {% block content %} {% endblock %}
 
-    <!-- Footer -->
+<section class="title-space pb-5 px-3" style="height: 130vh">
+  <div class="container text-center pt-4">
+    <h1 class="display-1 title-font">Levels</h1>
+    <h2 class="mt-3" style="font-size: 40px;">Choose a Level to Begin</h2>
+  </div>
+</section>
+
+<main class="levels-main">
+  <ul class='slider'>
+    <li class='item' style="background-image: url('img/covid_bg.png')">
+      <div class='content'>
+        <h2 class='title'>Level 5: 2020's COVID</h2>
+        <p class='description'>
+          Darby finds himself in 2020 when the Coronavirus pandemic hits the world!
+        </p>
+        <div class="level-info">
+          <p id="score-level-5"></p>
+          <p id="due-date-level-5"></p>
+        </div>
+        <button class="btn btn-success w-100" onclick="window.location='level-5.html'">
+          Start Level 5
+        </button>
+      </div>
+    </li>
+    <li class='item' style="background-image: url('img/prehistoric_bg.png')">
+      <div class='content'>
+        <h2 class='title'>Level 1: Prehistoric Era</h2>
+        <p class='description'> Join Darby the Dinosaur and his family in the prehistoric era! See how this era ends!
+        </p>
+        <div class="level-info">
+          <p id="score-level-1"></p>
+          <p id="due-date-level-1"></p>
+        </div>
+        <button class="btn btn-success w-100" onclick="window.location='level-1.html'">
+          Start Level 1
+        </button>
+      </div>
+    </li>
+    <li class='item' style="background-image: url('img/ice_bg.png')">
+      <div class='content'>
+        <h2 class='title'>Level 2: Ice Age</h2>
+        <p class='description'> Darby the Dinosaur finds himself in the Ice Age! </p>
+        <div class="level-info">
+          <p id="score-level-2"></p>
+          <p id="due-date-level-2"></p>
+        </div>
+        <button class="btn btn-success w-100" onclick="window.location='level-2.html'">
+          Start Level 2
+        </button>
+      </div>
+    </li>
+    <li class='item' style="background-image: url('img/roman_bg.png')">
+      <div class='content'>
+        <h2 class='title'>Level 3: Roman Empire</h2>
+        <p class='description'> During the Roman Empire, Darby explores the Amphitheater.</p>
+        <div class="level-info">
+          <p id="score-level-3"></p>
+          <p id="due-date-level-3"></p>
+        </div>
+        <button class="btn btn-success w-100" onclick="window.location='level-3.html'">
+          Start Level 3
+        </button>
+      </div>
+    </li>
+
+    <li class='item' style="background-image: url('img/roaring_bg.png')">
+      <div class='content'>
+        <h2 class='title'>Level 4: Roaring 20's</h2>
+        <p class='description'>
+          Darby finds himself in America during the Roaring 20's!
+        </p>
+        <div class="level-info">
+          <p id="score-level-4"></p>
+          <p id="due-date-level-4"></p>
+        </div>
+        <button class="btn btn-success w-100" onclick="window.location='level-4.html'">
+          Start Level 4
+        </button>
+      </div>
+    </li>
+  </ul>
+</main>
+
+<nav class='nav'>
+  <ion-icon class='btn prev' name="arrow-back-outline"></ion-icon>
+  <ion-icon class='btn next' name="arrow-forward-outline"></ion-icon>
+</nav>
+
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<script type="module" src="js/levels.js"></script>
+
+ <!-- Footer -->
     <footer class="p-5 footer text-light text-center position-relative">
         <div class="wider-container container-fluid pb-5">
             <div class="row">
                 <!-- Section Containing Website Logo/Mascot -->
                 <div class="col-md-4">
-                    <img src="{{url_for('static', filename='img/darby.png')}}" class="footer-alto bobble-img" alt="footer-alto">
+                    <img src="img/darby.png" class="footer-alto bobble-img" alt="footer-alto">
                 </div>
 
                 <!-- Links to Social Media (non-functional) -->

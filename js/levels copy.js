@@ -1,4 +1,4 @@
-// level-4.js
+// level-1.js
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
 import { getDatabase, ref, get, child, update } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
@@ -26,27 +26,25 @@ let currentQuestionIndex = 0;
 let score = 0;
 let lives = 3;
 let classCode = null;
-const level = 4;
+const level = 1;
 let introPlayed = false;
 let midPlayed = false;
-let timerInterval = null;
-let timeLeft = null;
 
 const lifeDisplay = document.getElementById("lifeCount");
 
 const videoContainer = document.getElementById("videoContainer");
 const videoPlayer = document.getElementById("levelVideo");
 
-const introVideo = "/static/videos/level-4-start.mp4";
-const midVideo = "/static/videos/level-4-mid.mp4";
-const endVideo = "/static/videos/level-4-end.mp4";
+const introVideo = "/static/videos/level-1-start.mp4";
+const midVideo = "/static/videos/level-1-mid.mp4";
+const endVideo = "/static/videos/level-1-end.mp4";
 
 // ---------------- Load Questions ---------------- //
 async function loadQuestions() {
   const user = getCurrentUser();
   if (!user) {
     alert("You must be logged in to take this quiz.");
-    window.location = "/student-home";
+    window.location = "/student-home.html";
     return;
   }
 
@@ -56,7 +54,7 @@ async function loadQuestions() {
 
   if (!classCode) {
     alert("You are not assigned to any classroom.");
-    window.location = "/student-home";
+    window.location = "/student-home.html";
     return;
   }
 
@@ -67,9 +65,7 @@ async function loadQuestions() {
   }
 
   const data = questionsSnap.val();
-  questions = Object.entries(data)
-  .filter(([key, value]) => key !== "dueDate")
-  .map(([key, value]) => value);
+  questions = Object.values(data);
 
   // Play intro before showing first question
   playVideo(introVideo, () => {
@@ -91,8 +87,6 @@ function displayQuestion() {
     return;
   }
 
-  stopTimer();
-
   const questionObj = questions[currentQuestionIndex];
   const questionText = document.getElementById("questionText");
   const choicesContainer = document.getElementById("choicesContainer");
@@ -109,58 +103,10 @@ function displayQuestion() {
   });
 
   document.getElementById("nextBtn").style.display = "none";
-
-  if (questionObj.timer) {
-    timeLeft = questionObj.timer;
-    const timerDisplay = document.getElementById("timerDisplay");
-    timerDisplay.textContent = `Time Left: ${timeLeft}s`;
-    timerDisplay.classList.remove("d-none");
-
-    timerInterval = setInterval(() => {
-      timeLeft--;
-      timerDisplay.textContent = `Time Left: ${timeLeft}s`;
-
-      if (timeLeft <= 0) {
-        stopTimer();
-        handleTimeout();
-      }
-    }, 1000);
-  } else {
-    document.getElementById("timerDisplay").classList.add("d-none");
-  }
-}
-
-// ---------------- Handle Timeout (automatic wrong answer) ---------------- //
-function handleTimeout() {
-  const questionObj = questions[currentQuestionIndex];
-
-  const buttons = document.querySelectorAll("#choicesContainer button");
-  buttons.forEach((btn, idx) => {
-    btn.disabled = true;
-    if (idx === questionObj.correctIndex) btn.classList.add("btn-success");
-  });
-
-  lives--;
-  lifeDisplay.textContent = lives;
-
-  if (lives <= 0) {
-    failLevel();
-    return;
-  }
-
-  document.getElementById("nextBtn").style.display = "block";
-}
-
-// ---------------- Stop Timer ---------------- //
-function stopTimer() {
-  if (timerInterval) clearInterval(timerInterval);
-  timerInterval = null;
 }
 
 // ---------------- Video Player ---------------- //
 function playVideo(src, callback) {
-  stopTimer();
-
   document.getElementById("quizContent").classList.add("d-none");
   videoContainer.classList.remove("d-none");
 
@@ -177,8 +123,6 @@ function playVideo(src, callback) {
 
 // ---------------- Handle Answer ---------------- //
 function handleAnswer(selectedIndex) {
-  stopTimer();
-
   const questionObj = questions[currentQuestionIndex];
   const correct = selectedIndex === questionObj.correctIndex;
 
@@ -207,8 +151,6 @@ function handleAnswer(selectedIndex) {
 document.getElementById("nextBtn").onclick = function () {
   currentQuestionIndex++;
 
-  stopTimer();
-
   if (currentQuestionIndex < questions.length) {
     displayQuestion();
   } else {
@@ -219,8 +161,6 @@ document.getElementById("nextBtn").onclick = function () {
 
 // ---------------- Finish Quiz (success) ---------------- //
 async function finishQuiz() {
-  stopTimer();
-
   document.getElementById("quizContent").classList.add("d-none");
   document.getElementById("resultContent").classList.remove("d-none");
 
@@ -234,8 +174,6 @@ async function finishQuiz() {
 
 // ---------------- Fail Quiz (out of lives) ---------------- //
 async function failLevel() {
-  stopTimer();
-  
   document.getElementById("quizContent").classList.add("d-none");
   document.getElementById("resultContent").classList.remove("d-none");
 
@@ -263,7 +201,7 @@ async function saveScore(percentage) {
 
 // ---------------- Back to Home ---------------- //
 document.getElementById("backHome").onclick = () => {
-  window.location = "/student-home";
+  window.location = "/student-home.html";
 };
 
 // ---------------- Init ---------------- //

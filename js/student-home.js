@@ -80,7 +80,7 @@ document.getElementById("joinClassBtn").onclick = async function () {
 
 // --------- Go to Levels ---------
 document.getElementById("goToLevels").onclick = function () {
-  window.location = "levels";
+  window.location = "levels.html";
 };
 
 window.addEventListener("load", loadStudentInfo, false)

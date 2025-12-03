@@ -107,9 +107,9 @@ function logIn(user, fbcfg) {
 
         // alert(fbcfg);
         if (expectedAccountType == "Teacher")
-            window.location = 'teacher-home';
+            window.location = 'teacher-home.html';
         else
-            window.location = 'student-home';
+            window.location = 'student-home.html';
     }
 
     // Local storage is permanent (keep user logged in even if browser is closed)
@@ -126,7 +126,7 @@ function logIn(user, fbcfg) {
         })
 
         // alert(fbcfg);
-        window.location = 'home';
+        window.location = '/';
     }
 
 }

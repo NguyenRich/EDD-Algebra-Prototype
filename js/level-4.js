@@ -1,4 +1,4 @@
-// level-2.js
+// level-4.js
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
 import { getDatabase, ref, get, child, update } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
@@ -26,7 +26,7 @@ let currentQuestionIndex = 0;
 let score = 0;
 let lives = 3;
 let classCode = null;
-const level = 2;
+const level = 4;
 let introPlayed = false;
 let midPlayed = false;
 let timerInterval = null;
@@ -37,16 +37,16 @@ const lifeDisplay = document.getElementById("lifeCount");
 const videoContainer = document.getElementById("videoContainer");
 const videoPlayer = document.getElementById("levelVideo");
 
-const introVideo = "/static/videos/level-2-start.mp4";
-const midVideo = "/static/videos/level-2-mid.mp4";
-const endVideo = "/static/videos/level-2-end.mp4";
+const introVideo = "/videos/level-4-start.mp4";
+const midVideo = "/videos/level-4-mid.mp4";
+const endVideo = "/videos/level-4-end.mp4";
 
 // ---------------- Load Questions ---------------- //
 async function loadQuestions() {
   const user = getCurrentUser();
   if (!user) {
     alert("You must be logged in to take this quiz.");
-    window.location = "/student-home";
+    window.location = "/student-home.html";
     return;
   }
 
@@ -56,7 +56,7 @@ async function loadQuestions() {
 
   if (!classCode) {
     alert("You are not assigned to any classroom.");
-    window.location = "/student-home";
+    window.location = "/student-home.html";
     return;
   }
 
@@ -263,7 +263,7 @@ async function saveScore(percentage) {
 
 // ---------------- Back to Home ---------------- //
 document.getElementById("backHome").onclick = () => {
-  window.location = "/student-home";
+  window.location = "/student-home.html";
 };
 
 // ---------------- Init ---------------- //

@@ -60,6 +60,13 @@ async function loadQuestions() {
   const questionsList = document.getElementById("questionsList");
 
   questionsList.innerHTML = "<p class='text-center'>Loading questions...</p>";
+
+  if (!classCode || !level) {
+    questionsList.innerHTML = "<p class='text-center text-muted'>Select a classroom and level.</p>";
+    return;
+  }
+
+  
   await loadDueDate();
 
 
